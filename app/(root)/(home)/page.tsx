@@ -4,10 +4,16 @@ import LocalSearchBar from "@/components/shared/LocalSearchBar";
 import NoResult from "@/components/shared/NoResult";
 import QuestionCard from "@/components/shared/QuestionCard";
 import { Button } from "@/components/ui/button";
-import { HomePageFilters } from "@/constants/filters";
 import Link from "next/link";
 // import ExampleClient from "../../../components/ExampleClient";
 // import { UserButton } from "@clerk/nextjs";
+
+const HomePageFilters = [
+  { name: "Newest", value: "newest" },
+  { name: "Recommended", value: "recommended" },
+  { name: "Frequent", value: "frequent" },
+  { name: "Unanswered", value: "unanswered" },
+];
 
 const questions = [
   {
@@ -86,13 +92,13 @@ export default function Home() {
           placeholder="search for question"
           otherClasses="flex-1"
         />
-        {/* <Filter
+        <Filter
           filters={HomePageFilters}
           otherClasses="min-h-[56px] sm:min-w-[170px]"
           containerClasses="hidden max-md:flex"
-        /> */}
+        />
       </div>
-      {/* <HomeFilters /> */}
+      <HomeFilters />
 
       <div
         className="mt-10 flex flex-col w-full
