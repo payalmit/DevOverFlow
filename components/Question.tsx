@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "./ui/badge";
 import Image from "next/image";
 import { createQuestion } from "@/lib/actions/question.action";
+import { useRouter, usePathname } from "next/navigation";
 
 const type: any = "create";
 
@@ -28,9 +29,12 @@ const QuestionSchema = z.object({
   tags: z.array(z.string().min(1).max(15)).min(1).max(3),
 });
 
-const Question = () => {
+const Question = ({ mongoUserId }: { mongoUserId: string }) => {
   const editorRef = useRef(null);
   const [isSubmitting, setSubmitting] = useState(false);
+  const Router = useRouter();
+  const pathName = usePathname();
+
   const form = useForm<z.infer<typeof QuestionSchema>>({
     resolver: zodResolver(QuestionSchema),
     defaultValues: {
@@ -78,7 +82,13 @@ const Question = () => {
     try {
       // make a async call to create a question
       // navigate the home
-      await createQuestion({});
+      await createQuestion({
+        title: values.title,
+        content: values.explanation,
+        tags: values.tags,
+        author: JSON.parse(mongoUserId),
+      });
+      Router.push("/");
     } catch (error) {
     } finally {
       setSubmitting(false);

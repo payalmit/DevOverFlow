@@ -1,20 +1,5 @@
 import { Schema, models, model, Document } from "mongoose";
 
-/*
-    ID 
-    name
-    username
-    email
-    password
-    Bio
-    Picture
-    Location
-    Portfolio
-    Reputation
-    Join Date
-
-*/
-
 export interface IUser extends Document {
   clerkId: string;
   name: string;
