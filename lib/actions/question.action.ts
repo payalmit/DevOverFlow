@@ -7,7 +7,7 @@ import Tag from "@/database/tag.model";
 export async function createQuestion(params: any) {
   try {
     connectToDatabase();
-    const { title, content, tags, author, path } = params;
+    const { title, content, tags, author } = params;
     // create a question
 
     const question = await Question.create({
@@ -24,7 +24,7 @@ export async function createQuestion(params: any) {
         { $setOnInsert: { name: tag }, $push: { questions: question._id } },
         { upsert: true, new: true }
       );
-      tagDocuments.push(existingTag);
+      tagDocuments.push(existingTag._id);
     }
 
     await Question.findByIdAndUpdate(question._id, {
